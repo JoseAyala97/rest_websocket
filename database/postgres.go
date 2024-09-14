@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"log"
 	"rest_websocket/models"
+
+	_ "github.com/lib/pq"
 )
 
 type PostgresRepository struct {
@@ -33,7 +35,7 @@ func (repo *PostgresRepository) InsertUser(ctx context.Context, user *models.Use
 
 // obtener usuario por id
 // reserve func
-func (repo *PostgresRepository) GetUserById(ctx context.Context, id int) (*models.User, error) {
+func (repo *PostgresRepository) GetUserById(ctx context.Context, id string) (*models.User, error) {
 	rows, err := repo.db.QueryContext(ctx, "SELECT id, email FROM users WHERE id = $1", id)
 	//procesar la informacion que se esta devolviendo - Go, fuertemente tipado
 
